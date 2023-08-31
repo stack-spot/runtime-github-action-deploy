@@ -14,7 +14,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-      
+    
+    steps:
     - name: Run Runtime Deploy Action
       uses: stack-spot/runtime-github-action-deploy@main
       with:

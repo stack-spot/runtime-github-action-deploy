@@ -1,5 +1,5 @@
-name: "Run Runtime Action Iac"
-description: "Runs Runtime Action Iac with parameters"
+name: "Run Runtime Action Deploy"
+description: "Runs Runtime Action Deploy with parameters"
 inputs:
   FEATURES_LEVEL_LOG:
     description: "Log Level"
@@ -16,12 +16,12 @@ runs:
       run: echo 🤖 OS runner is $(uname)
       shell: bash
       
-    - name: Run Runtime Action Iac
+    - name: Run Runtime Action Deploy
       run: |
         docker run --rm \
         -e FEATURES_LEVEL_LOG=${{ inputs.FEATURES_LEVEL_LOG }} \
-        --entrypoint=/app/stackspot-runtime-job-iac \
-        stackspot/runtime-iac start --input-path=${{ inputs.INPUT_PATH }}
+        --entrypoint=/app/stackspot-runtime-job-deploy \
+        stackspot/runtime-deploy start --input-path=${{ inputs.INPUT_PATH }}
       shell: bash
 
 branding:

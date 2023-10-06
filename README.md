@@ -25,7 +25,7 @@ jobs:
        fail-fast: true
        max-parallel: 1
     steps:
-      - name: Worker IAC
+      - name: DEPLOY
         if: contains( matrix.task.taskType , 'DEPLOY')
         uses: stack-spot/runtime-deploy-action@v1
         with:

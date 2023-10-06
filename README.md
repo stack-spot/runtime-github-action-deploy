@@ -53,7 +53,7 @@ Field | Mandatory | Observation
 **AWS_ACCESS_KEY_ID** | YES | [AWS](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html) Access Key ID
 **AWS_SECRET_ACCESS_KEY** | YES | [AWS](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html) Secret Access Key
 **AWS_SESSION_TOKEN** | YES | [AWS](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html) Session Token
-**AWS_REGION** | YES | AWS region and backend where resources with be provisioned and data stored (e.g: `us-east-1`).
+**AWS_REGION** | YES | AWS region where resources with be provisioned. Used for tf backend as well (e.g: `us-east-1`).
 **RUN_TASK_ID** | YES | StackSpot Runtime task id to be executed, according to [runtime-manager-action](https://github.com/stack-spot/runtime-manager-action).
 **REPOSITORY_NAME** | YES | Repository name to checkout during task process.
 

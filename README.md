@@ -41,6 +41,24 @@ jobs:
           RUN_TASK_ID: ${{ matrix.task.runTaskId }}
 ```
 
+* * *
+
+## ▶️ Action Inputs
+
+Field | Mandatory | Observation
+------------ | ------------  | ------------- | -------------
+**CLIENT_ID** | YES | [StackSpot](https://stackspot.com/en/settings/access-token) Client ID.
+**CLIENT_KEY** | YES |[StackSpot](https://stackspot.com/en/settings/access-token) Client KEY.
+**CLIENT_REALM** | YES | [StackSpot](https://stackspot.com/en/settings/access-token) Client Realm.
+**AWS_ACCESS_KEY_ID** | YES | [AWS](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html) Access Key ID
+**AWS_SECRET_ACCESS_KEY** | YES | [AWS](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html) Secret Access Key
+**AWS_SESSION_TOKEN** | YES | [AWS](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html) Session Token
+**AWS_REGION** | YES | AWS region and backend where resources with be provisioned and data stored (e.g: `us-east-1`).
+**RUN_TASK_ID** | YES | StackSpot Runtime task id to be executed, according to [runtime-manager-action](https://github.com/stack-spot/runtime-manager-action).
+**REPOSITORY_NAME** | YES | Repository name to checkout during task process.
+
+* * *
+
 ## License
 
 [Apache License 2.0](https://github.com/stack-spot/runtime-github-action-deploy/blob/main/LICENSE)

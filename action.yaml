@@ -6,31 +6,31 @@ inputs:
     required: true
   CLIENT_ID:
     description: "CLIENT ID"
-    required: false
+    required: true
   CLIENT_KEY:
     description: "CLIENT KEY"
-    required: false
+    required: true
   CLIENT_REALM:
     description: "CLIENT REALM"
-    required: false 
-  ROLE_ARN:
-    description: "ROLE ARN"
-    required: false 
+    required: true 
   REPOSITORY_NAME:
     description: "Git Repository Name"
     required: true 
   AWS_ACCESS_KEY_ID:
     description: "AWS ACCESS KEY ID from console"
-    required: true 
+    required: false 
   AWS_SECRET_ACCESS_KEY:
     description: "AWS SECRET ACCESS KEY from console"
-    required: true 
+    required: false 
   AWS_SESSION_TOKEN:
     description: "AWS SESSION TOKEN from console"
-    required: true 
+    required: false 
   AWS_REGION:
     description: "AWS REGION"
-    required: true 
+    required: true
+  AWS_ROLE_ARN:
+    description: "AWS ROLE ARN"
+    required: false 
   RUN_TASK_ID:
     description: "Runtime Run Task Id"
     required: true 

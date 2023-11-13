@@ -35,7 +35,7 @@ inputs:
     description: "Runtime Run Task Id"
     required: true 
   CONTAINER_URL:
-    description: "IAC Container url"
+    description: "Deploy Container url"
     default: stackspot/runtime-job-deploy
 
 runs:

@@ -80,7 +80,7 @@ runs:
         -e AWS_REGION=${{ inputs.AWS_REGION }} \
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \
         --entrypoint=/app/stackspot-runtime-job-deploy \
-        ${{ inputs.CONTAINER_URL }}:0.dev0 start --run-task-id="${{ inputs.RUN_TASK_ID }}"
+        ${{ inputs.CONTAINER_URL }}:0.dev1 start --run-task-id="${{ inputs.RUN_TASK_ID }}"
       shell: bash
 
     - name: Run Runtime Action Deploy
@@ -105,7 +105,7 @@ runs:
         -e AWS_REGION=${{ inputs.AWS_REGION }} \
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \
         --entrypoint=/app/stackspot-runtime-job-deploy \
-        ${{ inputs.CONTAINER_URL }}:0.dev0 start --run-task-id="${{ inputs.RUN_TASK_ID }}"
+        ${{ inputs.CONTAINER_URL }}:0.dev1 start --run-task-id="${{ inputs.RUN_TASK_ID }}"
       shell: bash
 
 branding:

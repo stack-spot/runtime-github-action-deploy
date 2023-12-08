@@ -61,7 +61,6 @@ runs:
     - name: Run Runtime Action Deploy
       if: ${{ inputs.AWS_ROLE_ARN == 0 }}
       run: |
-        echo "As variáveis para FEATURES_TERRAFORM_MODULES são: $FEATURES_TERRAFORM_MODULES"
         docker run --rm \
         -e FEATURES_LEVEL_LOG=${{ inputs.FEATURES_LEVEL_LOG }} \
         -e AUTHENTICATE_CLIENT_ID=${{ inputs.CLIENT_ID }} \
@@ -80,13 +79,12 @@ runs:
         -e AWS_REGION=${{ inputs.AWS_REGION }} \
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \
         --entrypoint=/app/stackspot-runtime-job-deploy \
-        ${{ inputs.CONTAINER_URL }}:0.dev1 start --run-task-id="${{ inputs.RUN_TASK_ID }}"
+        ${{ inputs.CONTAINER_URL }}:latest start --run-task-id="${{ inputs.RUN_TASK_ID }}"
       shell: bash
 
     - name: Run Runtime Action Deploy
       if: ${{ inputs.AWS_ROLE_ARN != 0 }}
       run: |
-        echo "As variáveis para FEATURES_TERRAFORM_MODULES são: $FEATURES_TERRAFORM_MODULES"
         docker run --rm \
         -e FEATURES_LEVEL_LOG=${{ inputs.FEATURES_LEVEL_LOG }} \
         -e AUTHENTICATE_CLIENT_ID=${{ inputs.CLIENT_ID }} \
@@ -105,7 +103,7 @@ runs:
         -e AWS_REGION=${{ inputs.AWS_REGION }} \
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \
         --entrypoint=/app/stackspot-runtime-job-deploy \
-        ${{ inputs.CONTAINER_URL }}:0.dev1 start --run-task-id="${{ inputs.RUN_TASK_ID }}"
+        ${{ inputs.CONTAINER_URL }}:latest start --run-task-id="${{ inputs.RUN_TASK_ID }}"
       shell: bash
 
 branding:

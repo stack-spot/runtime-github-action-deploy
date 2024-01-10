@@ -37,7 +37,6 @@ inputs:
   CONTAINER_URL:
     description: "Deploy Container url"
     default: stackspot/runtime-job-deploy
-    required: true
   FEATURES_TERRAFORM_MODULES:
     description: "Terraform Modules"
     required: false

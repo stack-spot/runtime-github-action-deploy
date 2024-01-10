@@ -12,31 +12,32 @@ inputs:
     required: true
   CLIENT_REALM:
     description: "CLIENT REALM"
-    required: true 
+    required: true
   REPOSITORY_NAME:
     description: "Git Repository Name"
-    required: true 
+    required: true
   AWS_ACCESS_KEY_ID:
     description: "AWS ACCESS KEY ID from console"
-    required: false 
+    required: false
   AWS_SECRET_ACCESS_KEY:
     description: "AWS SECRET ACCESS KEY from console"
-    required: false 
+    required: false
   AWS_SESSION_TOKEN:
     description: "AWS SESSION TOKEN from console"
-    required: false 
+    required: false
   AWS_REGION:
     description: "AWS REGION"
     required: true
   AWS_ROLE_ARN:
     description: "AWS ROLE ARN"
-    required: false 
+    required: false
   RUN_TASK_ID:
     description: "Runtime Run Task Id"
     required: true 
   CONTAINER_URL:
     description: "Deploy Container url"
     default: stackspot/runtime-job-deploy
+    required: true
   FEATURES_TERRAFORM_MODULES:
     description: "Terraform Modules"
     required: false

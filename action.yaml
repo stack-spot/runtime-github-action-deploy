@@ -33,7 +33,10 @@ inputs:
     required: false
   RUN_TASK_ID:
     description: "Runtime Run Task Id"
-    required: true
+    required: true 
+  CONTAINER_URL:
+    description: "Deploy Container url"
+    default: stackspot/runtime-job-deploy
   FEATURES_TERRAFORM_MODULES:
     description: "Terraform Modules"
     required: false
@@ -76,7 +79,7 @@ runs:
         -e AWS_REGION=${{ inputs.AWS_REGION }} \
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \
         --entrypoint=/app/stackspot-runtime-job-deploy \
-        stackspot/runtime-job-deploy:latest start --run-task-id="${{ inputs.RUN_TASK_ID }}"
+        ${{ inputs.CONTAINER_URL }}:latest start --run-task-id="${{ inputs.RUN_TASK_ID }}"
       shell: bash
 
     - name: Run Runtime Action Deploy
@@ -100,7 +103,7 @@ runs:
         -e AWS_REGION=${{ inputs.AWS_REGION }} \
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \
         --entrypoint=/app/stackspot-runtime-job-deploy \
-        stackspot/runtime-job-deploy:latest start --run-task-id="${{ inputs.RUN_TASK_ID }}"
+        ${{ inputs.CONTAINER_URL }}:latest start --run-task-id="${{ inputs.RUN_TASK_ID }}"
       shell: bash
 
 branding:

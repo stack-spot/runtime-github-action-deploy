@@ -43,7 +43,7 @@ inputs:
   PATH_TO_MOUNT:
     description: "Path to mount inside docker"
     required: false
-    default: "/app"
+    default: "/app-volume"
 
 runs:
   using: "composite"

@@ -62,7 +62,7 @@ runs:
         output-credentials: true
 
     - name: Executar contêiner Docker
-      run: docker run -v ${{ inputs.PATH_TO_MOUNT }}:/workspace alpine /bin/sh -c "pwd; ls -la /workspace"
+      run: docker run -v ${{ inputs.PATH_TO_MOUNT }}:/workspace alpine /bin/bash -c "pwd; ls -la /workspace"
       shell: bash
       
     - name: Run Runtime Action Deploy

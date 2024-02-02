@@ -51,6 +51,7 @@ runs:
     - name: List files in the repository
       run: |
         ls -la ${{ inputs.PATH_TO_MOUNT }}
+      shell: bash
       
     - name: Check Runner
       run: echo 🤖 OS runner is $(uname)

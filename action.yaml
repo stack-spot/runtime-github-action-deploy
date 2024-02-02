@@ -52,6 +52,9 @@ runs:
     - name: Check Runner
       run: echo 🤖 OS runner is $(uname)
       shell: bash
+        
+    - name: Checkout
+      uses: actions/checkout@v4
 
     - name: test-workspace-folder
       run: |

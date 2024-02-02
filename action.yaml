@@ -48,9 +48,9 @@ runs:
   using: "composite"
   steps:
 
-  - name: List files in the repository
-    run: |
-      ls -la ${{ inputs.PATH_TO_MOUNT }}
+    - name: List files in the repository
+      run: |
+        ls -la ${{ inputs.PATH_TO_MOUNT }}
       
     - name: Check Runner
       run: echo 🤖 OS runner is $(uname)

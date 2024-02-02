@@ -41,9 +41,8 @@ inputs:
     description: "Terraform Modules"
     required: false
   PATH_TO_MOUNT:
-    description: "Path to mount inside docker"
-    required: false
-    default: "/app-volume"
+    description: "Path to mount inside the docker"
+    required: true
 
 runs:
   using: "composite"
@@ -52,9 +51,6 @@ runs:
     - name: Check Runner
       run: echo 🤖 OS runner is $(uname)
       shell: bash
-
-    - name: Checkout
-      uses: actions/checkout@v4
 
     - name: Configure aws credentials
       id: aws-cred
@@ -69,7 +65,7 @@ runs:
       if: ${{ inputs.AWS_ROLE_ARN == 0 }}
       run: |
         docker run --rm \
-        -v ${{ github.workspace }}:${{ inputs.PATH_TO_MOUNT }}  \
+        -v ${{ inputs.PATH_TO_MOUNT }}:/app-volume  \
         -e FEATURES_LEVEL_LOG=${{ inputs.FEATURES_LEVEL_LOG }} \
         -e AUTHENTICATE_CLIENT_ID=${{ inputs.CLIENT_ID }} \
         -e AUTHENTICATE_CLIENT_SECRET=${{ inputs.CLIENT_KEY }} \

@@ -62,7 +62,6 @@ runs:
         output-credentials: true
 
     - name: Executar contêiner Docker
-      if: ${{ inputs.AWS_ROLE_ARN == 0 }}
       run: docker run -v ${{ inputs.PATH_TO_MOUNT }}:/workspace alpine /bin/sh -c "pwd; ls -la /workspace"
       shell: bash
       

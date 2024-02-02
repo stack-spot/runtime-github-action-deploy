@@ -57,7 +57,7 @@ runs:
       run: |
         echo "Current directory is $(pwd)"
         echo "Workspace is ${{ github.workspace }}"
-        ll -la ${{ github.workspace }}
+        ls -la ${{ github.workspace }}
       shell: bash
 
     - name: Configure aws credentials

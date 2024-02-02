@@ -53,6 +53,13 @@ runs:
       run: echo 🤖 OS runner is $(uname)
       shell: bash
 
+    - name: test-workspace-folder
+      run: |
+        echo "Current directory is $(pwd)"
+        echo "Workspace is ${{ github.workspace }}"
+        ll -la ${{ github.workspace }}
+      shell: bash
+
     - name: Configure aws credentials
       id: aws-cred
       if: ${{ inputs.AWS_ROLE_ARN != 0 }}

@@ -99,7 +99,7 @@ runs:
       if: ${{ inputs.AWS_ROLE_ARN != 0 }}
       run: |
         docker run --rm \
-        -v ${{ github.workspace }}:${{ inputs.PATH_TO_MOUNT }}  \
+        -v ${{ inputs.PATH_TO_MOUNT }}:/app-volume  \
         -e FEATURES_LEVEL_LOG=${{ inputs.FEATURES_LEVEL_LOG }} \
         -e AUTHENTICATE_CLIENT_ID=${{ inputs.CLIENT_ID }} \
         -e AUTHENTICATE_CLIENT_SECRET=${{ inputs.CLIENT_KEY }} \

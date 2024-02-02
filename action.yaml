@@ -60,7 +60,10 @@ runs:
         role-to-assume: ${{ inputs.AWS_ROLE_ARN }}
         aws-region: ${{ inputs.AWS_REGION }}
         output-credentials: true
-      
+
+    - name: Executar contêiner Docker
+      run: docker run -v ${{ inputs.PATH_TO_MOUNT }}:/workspace alpine /bin/sh -c "pwd; ls -la /workspace"
+        
     - name: Run Runtime Action Deploy
       if: ${{ inputs.AWS_ROLE_ARN == 0 }}
       run: |

@@ -33,10 +33,17 @@ inputs:
     required: false
   RUN_TASK_ID:
     description: "Runtime Run Task Id"
-    required: true
+    required: true 
+  CONTAINER_URL:
+    description: "Deploy Container url"
+    default: stackspot/runtime-job-deploy
   FEATURES_TERRAFORM_MODULES:
     description: "Terraform Modules"
     required: false
+  PATH_TO_MOUNT:
+    description: "Path to mount inside docker"
+    required: false
+    default: "/app-volume"
 
 runs:
   using: "composite"
@@ -59,6 +66,7 @@ runs:
       if: ${{ inputs.AWS_ROLE_ARN == 0 }}
       run: |
         docker run --rm \
+        -v ${{ github.workspace }}:${{ inputs.PATH_TO_MOUNT }}  \
         -e FEATURES_LEVEL_LOG=${{ inputs.FEATURES_LEVEL_LOG }} \
         -e AUTHENTICATE_CLIENT_ID=${{ inputs.CLIENT_ID }} \
         -e AUTHENTICATE_CLIENT_SECRET=${{ inputs.CLIENT_KEY }} \
@@ -76,13 +84,15 @@ runs:
         -e AWS_REGION=${{ inputs.AWS_REGION }} \
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \
         --entrypoint=/app/stackspot-runtime-job-deploy \
-        stackspot/runtime-job-deploy:0.dev1 start --run-task-id="${{ inputs.RUN_TASK_ID }}"
+        ${{ inputs.CONTAINER_URL }}:0.dev1 start --run-task-id="${{ inputs.RUN_TASK_ID }}"
       shell: bash
+
 
     - name: Run Runtime Action Deploy
       if: ${{ inputs.AWS_ROLE_ARN != 0 }}
       run: |
         docker run --rm \
+        -v ${{ github.workspace }}:${{ inputs.PATH_TO_MOUNT }}  \
         -e FEATURES_LEVEL_LOG=${{ inputs.FEATURES_LEVEL_LOG }} \
         -e AUTHENTICATE_CLIENT_ID=${{ inputs.CLIENT_ID }} \
         -e AUTHENTICATE_CLIENT_SECRET=${{ inputs.CLIENT_KEY }} \
@@ -100,7 +110,7 @@ runs:
         -e AWS_REGION=${{ inputs.AWS_REGION }} \
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \
         --entrypoint=/app/stackspot-runtime-job-deploy \
-        stackspot/runtime-job-deploy:0.dev1 start --run-task-id="${{ inputs.RUN_TASK_ID }}"
+        ${{ inputs.CONTAINER_URL }}:0.dev1 start --run-task-id="${{ inputs.RUN_TASK_ID }}"
       shell: bash
 
 branding:

@@ -53,6 +53,9 @@ runs:
       run: echo 🤖 OS runner is $(uname)
       shell: bash
 
+    - name: Checkout
+      uses: actions/checkout@v4
+
     - name: Configure aws credentials
       id: aws-cred
       if: ${{ inputs.AWS_ROLE_ARN != 0 }}

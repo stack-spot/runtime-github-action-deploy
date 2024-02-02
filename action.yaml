@@ -47,11 +47,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-
-    - name: List files in the repository
-      run: |
-        ls -la ${{ inputs.PATH_TO_MOUNT }}
-      shell: bash
       
     - name: Check Runner
       run: echo 🤖 OS runner is $(uname)
@@ -65,10 +60,6 @@ runs:
         role-to-assume: ${{ inputs.AWS_ROLE_ARN }}
         aws-region: ${{ inputs.AWS_REGION }}
         output-credentials: true
-
-    - name: Executar contêiner Docker
-      run: docker run -v ${{ inputs.PATH_TO_MOUNT }}:/workspace alpine /bin/sh -c "pwd; ls -la /workspace"
-      shell: bash
       
     - name: Run Runtime Action Deploy
       if: ${{ inputs.AWS_ROLE_ARN == 0 }}

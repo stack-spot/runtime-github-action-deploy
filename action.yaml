@@ -82,7 +82,7 @@ runs:
         -e AWS_SESSION_TOKEN=${{ inputs.AWS_SESSION_TOKEN }} \
         -e AWS_REGION=${{ inputs.AWS_REGION }} \
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \
-        --entrypoint=/app/stackspot-runtime-job-deploy \
+        --entrypoint=/app/stackspot-runtime-job-deploy --name="${{ inputs.RUN_TASK_ID }}" \
         ${{ inputs.CONTAINER_URL }}:latest start --run-task-id="${{ inputs.RUN_TASK_ID }}"
       shell: bash
 
@@ -107,12 +107,12 @@ runs:
         -e AWS_SESSION_TOKEN=${{ steps.aws-cred.outputs.aws-session-token }} \
         -e AWS_REGION=${{ inputs.AWS_REGION }} \
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \
-        --entrypoint=/app/stackspot-runtime-job-deploy \
+        --entrypoint=/app/stackspot-runtime-job-deploy --name="${{ inputs.RUN_TASK_ID }}" \
         ${{ inputs.CONTAINER_URL }}:latest start --run-task-id="${{ inputs.RUN_TASK_ID }}"
       shell: bash
 
     - name: Get Logs in Docker
-      run: docker logs $(docker ps -q)
+      run: docker logs ${{ inputs.RUN_TASK_ID }}
       shell: bash
 
 branding:

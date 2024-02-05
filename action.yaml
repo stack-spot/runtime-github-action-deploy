@@ -111,6 +111,10 @@ runs:
         ${{ inputs.CONTAINER_URL }}:latest start --run-task-id="${{ inputs.RUN_TASK_ID }}"
       shell: bash
 
+    - name: Get Logs in Docker
+      run: docker logs $(docker ps -q)
+      shell: bash
+
 branding:
     icon: 'terminal'
     color: 'orange'

@@ -64,7 +64,7 @@ runs:
     - name: Run Runtime Action Deploy
       if: ${{ inputs.AWS_ROLE_ARN == 0 }}
       run: |
-        docker run --rm \
+        docker run  \
         -v ${{ inputs.PATH_TO_MOUNT }}:/app-volume  \
         -e FEATURES_LEVEL_LOG=${{ inputs.FEATURES_LEVEL_LOG }} \
         -e AUTHENTICATE_CLIENT_ID=${{ inputs.CLIENT_ID }} \
@@ -82,14 +82,14 @@ runs:
         -e AWS_SESSION_TOKEN=${{ inputs.AWS_SESSION_TOKEN }} \
         -e AWS_REGION=${{ inputs.AWS_REGION }} \
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \
-        --entrypoint=/app/stackspot-runtime-job-deploy \
+        --entrypoint=/app/stackspot-runtime-job-deploy --name="${{ inputs.RUN_TASK_ID }}" \
         ${{ inputs.CONTAINER_URL }}:latest start --run-task-id="${{ inputs.RUN_TASK_ID }}"
       shell: bash
 
     - name: Run Runtime Action Deploy
       if: ${{ inputs.AWS_ROLE_ARN != 0 }}
       run: |
-        docker run --rm \
+        docker run \
         -v ${{ inputs.PATH_TO_MOUNT }}:/app-volume  \
         -e FEATURES_LEVEL_LOG=${{ inputs.FEATURES_LEVEL_LOG }} \
         -e AUTHENTICATE_CLIENT_ID=${{ inputs.CLIENT_ID }} \
@@ -107,8 +107,12 @@ runs:
         -e AWS_SESSION_TOKEN=${{ steps.aws-cred.outputs.aws-session-token }} \
         -e AWS_REGION=${{ inputs.AWS_REGION }} \
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \
-        --entrypoint=/app/stackspot-runtime-job-deploy \
+        --entrypoint=/app/stackspot-runtime-job-deploy --name="${{ inputs.RUN_TASK_ID }}" \
         ${{ inputs.CONTAINER_URL }}:latest start --run-task-id="${{ inputs.RUN_TASK_ID }}"
+      shell: bash
+
+    - name: Get Logs in Docker
+      run: docker logs ${{ inputs.RUN_TASK_ID }}
       shell: bash
 
 branding:

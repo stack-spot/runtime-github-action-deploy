@@ -112,7 +112,13 @@ runs:
       shell: bash
 
     - name: Get Logs in Docker
+      if: ${{ always() }}
       run: docker logs ${{ inputs.RUN_TASK_ID }}
+      shell: bash
+
+    - name: Get Logs in Docker 2
+      if: ${{ always() }}
+      run: docker ps -a
       shell: bash
 
 branding:

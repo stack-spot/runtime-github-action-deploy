@@ -42,6 +42,7 @@ jobs:
           RUN_TASK_ID: ${{ matrix.task.runTaskId }}
           CONTAINER_URL: my/container-url # not mandatory
           FEATURES_TERRAFORM_MODULES: ... # not mandatory
+          OUTPUT_FILE: outputs_file_name.json # not mandatory
           PATH_TO_MOUNT: path/to/mount
 ```
 

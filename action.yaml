@@ -107,9 +107,9 @@ runs:
         -e FEATURES_BASEPATH_EBS="/opt/runtime" \
         -e FEATURES_TEMPLATES_FILEPATH="/app/" \
         -e FEATURES_BASEPATH_TERRAFORM="/root/.asdf/shims/terraform" \
-        -e AWS_ACCESS_KEY_ID=${{ inputs.AWS_ACCESS_KEY_ID }} \
-        -e AWS_SECRET_ACCESS_KEY=${{ inputs.AWS_SECRET_ACCESS_KEY }} \
-        -e AWS_SESSION_TOKEN=${{ inputs.AWS_SESSION_TOKEN }} \
+        -e AWS_ACCESS_KEY_ID=${{ steps.aws-cred.outputs.aws-access-key-id }} \
+        -e AWS_SECRET_ACCESS_KEY=${{ steps.aws-cred.outputs.aws-secret-access-key }} \
+        -e AWS_SESSION_TOKEN=${{ steps.aws-cred.outputs.aws-session-token }} \
         -e AWS_REGION=${{ inputs.AWS_REGION }} \
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \
         --entrypoint=/app/stackspot-runtime-job-deploy \

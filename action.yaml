@@ -45,7 +45,7 @@ inputs:
     required: true
     default: ${{ github.workspace }}
   OUTPUT_FILE:
-    description: "File name for salve outputs"
+    description: "File name to save outputs"
     required: false
     default: outputs.json
 

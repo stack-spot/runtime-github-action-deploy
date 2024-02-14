@@ -44,6 +44,10 @@ inputs:
     description: "Path to mount inside the docker"
     required: true
     default: ${{ github.workspace }}
+  OUTPUT_FILE:
+    description: "File name to save outputs"
+    required: false
+    default: outputs.json
 
 runs:
   using: "composite"
@@ -84,7 +88,7 @@ runs:
         -e AWS_REGION=${{ inputs.AWS_REGION }} \
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \
         --entrypoint=/app/stackspot-runtime-job-deploy \
-        ${{ inputs.CONTAINER_URL }}:latest start --run-task-id="${{ inputs.RUN_TASK_ID }}"
+        ${{ inputs.CONTAINER_URL }}:latest start --run-task-id="${{ inputs.RUN_TASK_ID }}" --output-file="${{ inputs.OUTPUT_FILE }}"
       shell: bash
 
     - name: Run Runtime Action Deploy
@@ -109,7 +113,7 @@ runs:
         -e AWS_REGION=${{ inputs.AWS_REGION }} \
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \
         --entrypoint=/app/stackspot-runtime-job-deploy \
-        ${{ inputs.CONTAINER_URL }}:latest start --run-task-id="${{ inputs.RUN_TASK_ID }}"
+        ${{ inputs.CONTAINER_URL }}:latest start --run-task-id="${{ inputs.RUN_TASK_ID }}" --output-file="${{ inputs.OUTPUT_FILE }}"
       shell: bash
 
 branding:

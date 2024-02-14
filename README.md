@@ -42,6 +42,7 @@ jobs:
           RUN_TASK_ID: ${{ matrix.task.runTaskId }}
           CONTAINER_URL: my/container-url # not mandatory
           FEATURES_TERRAFORM_MODULES: ... # not mandatory
+          OUTPUT_FILE: outputs_file_name.json # not mandatory
           PATH_TO_MOUNT: path/to/mount
 ```
 
@@ -65,6 +66,7 @@ Field | Mandatory | Observation
 **CONTAINER_URL** | NO | Container url reference (e.g `stackspot/image`)
 **FEATURES_TERRAFORM_MODULES** | NO | List of external terraform modules allowed
 **PATH_TO_MOUNT** | YES | Path provided to be used as a volume within the docker image that will be used with terraform
+**OUTPUT_FILE** | NO | Filename where outputs will be saved (default value: `outputs.json`)
 
 * * *
 

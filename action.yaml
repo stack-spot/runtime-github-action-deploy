@@ -48,6 +48,10 @@ inputs:
     description: "File name to save outputs"
     required: false
     default: outputs.json
+  RELEASE_LOCALEXEC:
+    description: "If Runtimes will allow execution of the local-exec command within terraform"
+    required: false
+    default: false
 
 runs:
   using: "composite"
@@ -87,8 +91,9 @@ runs:
         -e AWS_SESSION_TOKEN=${{ inputs.AWS_SESSION_TOKEN }} \
         -e AWS_REGION=${{ inputs.AWS_REGION }} \
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \
+        -e FEATURES_RELEASE_LOCALEXEC=${{ inputs.RELEASE_LOCALEXEC }} \
         --entrypoint=/app/stackspot-runtime-job-deploy \
-        ${{ inputs.CONTAINER_URL }}:2.23.0 start --run-task-id="${{ inputs.RUN_TASK_ID }}" --output-file="${{ inputs.OUTPUT_FILE }}"
+        ${{ inputs.CONTAINER_URL }}:0.dev1 start --run-task-id="${{ inputs.RUN_TASK_ID }}" --output-file="${{ inputs.OUTPUT_FILE }}"
       shell: bash
 
     - name: Run Runtime Action Deploy
@@ -112,8 +117,9 @@ runs:
         -e AWS_SESSION_TOKEN=${{ steps.aws-cred.outputs.aws-session-token }} \
         -e AWS_REGION=${{ inputs.AWS_REGION }} \
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \
+        -e FEATURES_RELEASE_LOCALEXEC=${{ inputs.RELEASE_LOCALEXEC }} \
         --entrypoint=/app/stackspot-runtime-job-deploy \
-        ${{ inputs.CONTAINER_URL }}:2.23.0 start --run-task-id="${{ inputs.RUN_TASK_ID }}" --output-file="${{ inputs.OUTPUT_FILE }}"
+        ${{ inputs.CONTAINER_URL }}:0.dev1 start --run-task-id="${{ inputs.RUN_TASK_ID }}" --output-file="${{ inputs.OUTPUT_FILE }}"
       shell: bash
 
 branding:

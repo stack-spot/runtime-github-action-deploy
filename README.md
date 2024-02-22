@@ -44,7 +44,7 @@ jobs:
           FEATURES_TERRAFORM_MODULES: ... # not mandatory
           OUTPUT_FILE: outputs_file_name.json # not mandatory
           PATH_TO_MOUNT: path/to/mount
-          RELEASE_LOCALEXEC: true
+          RELEASE_LOCALEXEC: true # not mandatory
 ```
 
 * * *

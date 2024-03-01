@@ -44,7 +44,7 @@ jobs:
           FEATURES_TERRAFORM_MODULES: ... # not mandatory
           OUTPUT_FILE: outputs_file_name.json # not mandatory
           PATH_TO_MOUNT: path/to/mount
-          RELEASE_LOCALEXEC: true # not mandatory
+          LOCALEXEC_ENABLED: true # not mandatory
 ```
 
 * * *
@@ -68,7 +68,7 @@ Field | Mandatory | Observation
 **FEATURES_TERRAFORM_MODULES** | NO | List of external terraform modules allowed
 **PATH_TO_MOUNT** | YES | Path provided to be used as a volume within the docker image that will be used with terraform
 **OUTPUT_FILE** | NO | Filename where outputs will be saved (default value: `outputs.json`)
-**RELEASE_LOCALEXEC** | NO | whether or not terraform will be enable to perform local exec operations or not (default: `false`)
+**LOCALEXEC_ENABLED** | NO | whether or not terraform will be enable to perform local exec operations or not (default: `false`)
 
 * * *
 

@@ -36,7 +36,8 @@ inputs:
     required: true 
   CONTAINER_URL:
     description: "Deploy Container url"
-    default: stackspot/runtime-job-deploy
+    default: stackspot/runtime-job-deploy:latest
+    required: false
   FEATURES_TERRAFORM_MODULES:
     description: "Terraform Modules"
     required: false
@@ -93,7 +94,7 @@ runs:
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \
         -e FEATURES_RELEASE_LOCALEXEC=${{ inputs.LOCALEXEC_ENABLED }} \
         --entrypoint=/app/stackspot-runtime-job-deploy \
-        ${{ inputs.CONTAINER_URL }}:latest start --run-task-id="${{ inputs.RUN_TASK_ID }}" --output-file="${{ inputs.OUTPUT_FILE }}"
+        ${{ inputs.CONTAINER_URL }} start --run-task-id="${{ inputs.RUN_TASK_ID }}" --output-file="${{ inputs.OUTPUT_FILE }}"
       shell: bash
 
     - name: Run Runtime Action Deploy
@@ -119,7 +120,7 @@ runs:
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \
         -e FEATURES_RELEASE_LOCALEXEC=${{ inputs.LOCALEXEC_ENABLED }} \
         --entrypoint=/app/stackspot-runtime-job-deploy \
-        ${{ inputs.CONTAINER_URL }}:latest start --run-task-id="${{ inputs.RUN_TASK_ID }}" --output-file="${{ inputs.OUTPUT_FILE }}"
+        ${{ inputs.CONTAINER_URL }} start --run-task-id="${{ inputs.RUN_TASK_ID }}" --output-file="${{ inputs.OUTPUT_FILE }}"
       shell: bash
 
 branding:

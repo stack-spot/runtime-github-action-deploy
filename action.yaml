@@ -97,7 +97,7 @@ runs:
         -e FEATURES_RELEASE_LOCALEXEC=${{ inputs.LOCALEXEC_ENABLED }} \")
         
         if [ ! -z "${{ inputs.TF_LOG_PROVIDER }}" ]; then
-          FLAGS=$(echo "$FLAGS -e TF_LOG_PROVIDER=${{ inputs.TF_LOG_PROVIDER }}")
+          FLAGS=$(echo "$FLAGS -e TF_LOG_PROVIDER='${{ inputs.TF_LOG_PROVIDER }}'")
         fi
 
         docker run --rm \
@@ -129,7 +129,7 @@ runs:
         -e FEATURES_RELEASE_LOCALEXEC=${{ inputs.LOCALEXEC_ENABLED }} \")
                 
         if [ ! -z "${{ inputs.TF_LOG_PROVIDER }}" ]; then
-          FLAGS=$(echo "$FLAGS -e TF_LOG_PROVIDER=${{ inputs.TF_LOG_PROVIDER }} \")
+          FLAGS=$(echo "$FLAGS -e TF_LOG_PROVIDER='${{ inputs.TF_LOG_PROVIDER }}'")
         fi
 
         docker run --rm \

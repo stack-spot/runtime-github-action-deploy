@@ -97,8 +97,8 @@ runs:
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \")
         
         if [ ! -z "${{ inputs.TF_LOG_PROVIDER }}" ]; then
-          FLAGS=$(echo "$FLAGS -e TF_LOG_PROVIDER='${{ inputs.TF_LOG_PROVIDER }}'")
-        fi
+          FLAGS=$(echo "$FLAGS -e TF_LOG_PROVIDER=${{ inputs.TF_LOG_PROVIDER }}")
+        fi  
 
         docker run --rm \
         $FLAGS \
@@ -127,10 +127,10 @@ runs:
         -e AWS_REGION=${{ inputs.AWS_REGION }} \
         -e FEATURES_RELEASE_LOCALEXEC=${{ inputs.RELEASE_LOCALEXEC }} \
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \")
-                
+
         if [ ! -z "${{ inputs.TF_LOG_PROVIDER }}" ]; then
-          FLAGS=$(echo "$FLAGS -e TF_LOG_PROVIDER='${{ inputs.TF_LOG_PROVIDER }}'")
-        fi
+          FLAGS=$(echo "$FLAGS -e TF_LOG_PROVIDER=${{ inputs.TF_LOG_PROVIDER }}")
+        fi       
 
         docker run --rm \
         $FLAGS \

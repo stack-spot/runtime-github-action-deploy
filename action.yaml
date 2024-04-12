@@ -108,7 +108,7 @@ runs:
           FLAGS=$(echo "$FLAGS -e TF_LOG_PROVIDER=${{ inputs.TF_LOG_PROVIDER }} \")
         fi
 
-        $echo $FLAGS
+        $echo "Value of variable named $FLAGS : ${!FLAGS}"
 
         docker run --rm \
         $FLAGS \

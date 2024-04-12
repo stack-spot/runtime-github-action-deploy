@@ -92,14 +92,16 @@ runs:
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \
         -e FEATURES_RELEASE_LOCALEXEC=${{ inputs.LOCALEXEC_ENABLED }} \")
 
+        if [ ! -z "${{ inputs.AWS_ROLE_ARN }}" ]; then 
+          FLAGS=$(echo "$FLAGS -e AWS_ACCESS_KEY_ID=${{ steps.aws-cred.outputs.aws-access-key-id }} \
+          -e AWS_SECRET_ACCESS_KEY=${{ steps.aws-cred.outputs.aws-secret-access-key }} \
+          -e AWS_SESSION_TOKEN=${{ steps.aws-cred.outputs.aws-session-token }} \")
+        fi
+
         if [ -z "${{ inputs.AWS_ROLE_ARN }}" ]; then 
           FLAGS=$(echo "$FLAGS -e AWS_ACCESS_KEY_ID=${{ inputs.AWS_ACCESS_KEY_ID }} \
           -e AWS_SECRET_ACCESS_KEY=${{ inputs.AWS_SECRET_ACCESS_KEY }} \
           -e AWS_SESSION_TOKEN=${{ inputs.AWS_SESSION_TOKEN }} \")
-        else
-          FLAGS=$(echo "$FLAGS -e AWS_ACCESS_KEY_ID=${{ steps.aws-cred.outputs.aws-access-key-id }} \
-          -e AWS_SECRET_ACCESS_KEY=${{ steps.aws-cred.outputs.aws-secret-access-key }} \
-          -e AWS_SESSION_TOKEN=${{ steps.aws-cred.outputs.aws-session-token }} \")
         fi
 
         if [ ! -z "${{ inputs.TF_LOG_PROVIDER }}" ]; then
@@ -109,8 +111,8 @@ runs:
         docker run --rm \
         $FLAGS \
         --entrypoint=/app/stackspot-runtime-job-deploy \
-        ${{ inputs.CONTAINER_URL }}:latest start --run-task-id="${{ inputs.RUN_TASK_ID }}" --output-file="${{ inputs.OUTPUT_FILE }}"
-shell: bash
+        ${{ inputs.CONTAINER_URL }} start --run-task-id="${{ inputs.RUN_TASK_ID }}" --output-file="${{ inputs.OUTPUT_FILE }}"
+      shell: bash
 
 branding:
     icon: 'terminal'

@@ -96,6 +96,10 @@ runs:
         -e FEATURES_RELEASE_LOCALEXEC=${{ inputs.LOCALEXEC_ENABLED }} \
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}'")
 
+        if [ ! -z "${{ inputs.TF_LOG_PROVIDER }}" ]; then
+          FLAGS=$(echo "$FLAGS -e TF_LOG_PROVIDER=${{ inputs.TF_LOG_PROVIDER }}")
+        fi
+
         docker run --rm \
         $FLAGS \
         --entrypoint=/app/stackspot-runtime-job-deploy \
@@ -123,6 +127,10 @@ runs:
         -e AWS_REGION=${{ inputs.AWS_REGION }} \
         -e FEATURES_RELEASE_LOCALEXEC=${{ inputs.LOCALEXEC_ENABLED }} \
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}'")     
+
+        if [ ! -z "${{ inputs.TF_LOG_PROVIDER }}" ]; then
+          FLAGS=$(echo "$FLAGS -e TF_LOG_PROVIDER=${{ inputs.TF_LOG_PROVIDER }}")
+        fi
 
         docker run --rm \
         $FLAGS \

@@ -129,7 +129,7 @@ runs:
         -e FEATURES_TERRAFORM_MODULES=${{ inputs.FEATURES_TERRAFORM_MODULES }}")     
 
         if [ ! -z "${{ inputs.TF_LOG_PROVIDER }}" ]; then
-          FLAGS=$(echo "$FLAGS -e TF_LOG_PROVIDER=${{ inputs.TF_LOG_PROVIDER }}")
+          FLAGS=$(echo "$FLAGS -e FEATURES_TERRAFORM_LOGPROVIDER=${{ inputs.TF_LOG_PROVIDER }}")
         fi
 
         docker run --rm \

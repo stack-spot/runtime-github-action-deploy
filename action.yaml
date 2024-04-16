@@ -88,23 +88,20 @@ runs:
         -e FEATURES_BASEPATH_EBS=/opt/runtime \
         -e FEATURES_TEMPLATES_FILEPATH=/app/ \
         -e FEATURES_BASEPATH_TERRAFORM=/root/.asdf/shims/terraform \
-        -e AWS_ACCESS_KEY_ID=${{ inputs.AWS_ACCESS_KEY_ID }} \
-        -e AWS_SECRET_ACCESS_KEY=${{ inputs.AWS_SECRET_ACCESS_KEY }} \
-        -e AWS_SESSION_TOKEN=${{ inputs.AWS_SESSION_TOKEN }} \
         -e AWS_REGION=${{ inputs.AWS_REGION }} \
         -e FEATURES_RELEASE_LOCALEXEC=${{ inputs.LOCALEXEC_ENABLED }} \
         -e FEATURES_TERRAFORM_MODULES=${{ inputs.FEATURES_TERRAFORM_MODULES }}")
 
         if [ -z "${{ inputs.AWS_ROLE_ARN }}" ]; then
-          FLAGS=$(echo "$FLAGS -e AWS_ACCESS_KEY_ID=${{ inputs.AWS_ACCESS_KEY_ID }} \
-            -e AWS_SECRET_ACCESS_KEY=${{ inputs.AWS_SECRET_ACCESS_KEY }} \
-            -e AWS_SESSION_TOKEN=${{ inputs.AWS_SESSION_TOKEN }} \")
+          FLAGS=$(echo "$FLAGS -e AWS_ACCESS_KEY_ID=${{ inputs.AWS_ACCESS_KEY_ID }}")
+          FLAGS=$(echo "$FLAGS -e AWS_SECRET_ACCESS_KEY=${{ inputs.AWS_SECRET_ACCESS_KEY }}")
+          FLAGS=$(echo "$FLAGS -e AWS_SESSION_TOKEN=${{ inputs.AWS_SESSION_TOKEN }}")
         fi
 
         if [ ! -z "${{ inputs.AWS_ROLE_ARN }}" ]; then
-          FLAGS=$(echo "$FLAGS -e AWS_ACCESS_KEY_ID=${{ steps.aws-cred.outputs.aws-access-key-id }} \
-        -e AWS_SECRET_ACCESS_KEY=${{ steps.aws-cred.outputs.aws-secret-access-key }} \
-        -e AWS_SESSION_TOKEN=${{ steps.aws-cred.outputs.aws-session-token }} \")
+          FLAGS=$(echo "$FLAGS -e AWS_ACCESS_KEY_ID=${{ steps.aws-cred.outputs.aws-access-key-id }}")
+          FLAGS=$(echo "$FLAGS -e AWS_SECRET_ACCESS_KEY=${{ steps.aws-cred.outputs.aws-secret-access-key }}")
+          FLAGS=$(echo "$FLAGS -e AWS_SESSION_TOKEN=${{ steps.aws-cred.outputs.aws-session-token }}")
         fi
 
         if [ ! -z "${{ inputs.TF_LOG_PROVIDER }}" ]; then

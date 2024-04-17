@@ -89,8 +89,7 @@ runs:
         -e FEATURES_TEMPLATES_FILEPATH=/app/ \
         -e FEATURES_BASEPATH_TERRAFORM=/root/.asdf/shims/terraform \
         -e AWS_REGION=${{ inputs.AWS_REGION }} \
-        -e FEATURES_RELEASE_LOCALEXEC=${{ inputs.LOCALEXEC_ENABLED }} \
-        -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \")
+        -e FEATURES_RELEASE_LOCALEXEC=${{ inputs.LOCALEXEC_ENABLED }}")
 
         if [ -z "${{ inputs.AWS_ROLE_ARN }}" ]; then
           FLAGS=$(echo "$FLAGS -e AWS_ACCESS_KEY_ID=${{ inputs.AWS_ACCESS_KEY_ID }}")
@@ -110,6 +109,7 @@ runs:
 
         docker run --rm \
         $FLAGS \
+        -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \
         --entrypoint=/app/stackspot-runtime-job-deploy \
         ${{ inputs.CONTAINER_URL }} start --run-task-id="${{ inputs.RUN_TASK_ID }}" --output-file="${{ inputs.OUTPUT_FILE }}"
       shell: bash

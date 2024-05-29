@@ -46,6 +46,7 @@ jobs:
           PATH_TO_MOUNT: path/to/mount
           LOCALEXEC_ENABLED: true # not mandatory
           TF_LOG_PROVIDER: info # not mandatory
+          CHECKOUT_BRANCH: 'true' # not mandatory
 ```
 
 * * *

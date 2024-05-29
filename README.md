@@ -71,6 +71,7 @@ Field | Mandatory | Observation
 **OUTPUT_FILE** | NO | Filename where outputs will be saved (default value: `outputs.json`)
 **LOCALEXEC_ENABLED** | NO | Whether or not terraform will be enable to perform local exec operations or not (default: `false`)
 **TF_LOG_PROVIDER** | NO | If there is a need to check Terraform's own log, it is now possible to pass the levels of the Terraform provider, allowing you to analyze what happens within Terraform's CLI (info, trace, debug and warn).
+**CHECKOUT_BRANCH** | NO  | Whether or not checkout is enabled. (default: `'false'`)
 
 * * *
 

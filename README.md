@@ -27,7 +27,7 @@ jobs:
     steps:
       - name: DEPLOY
         if: contains( matrix.task.taskType , 'DEPLOY')
-        uses: stack-spot/runtime-deploy-action@v2
+        uses: stack-spot/runtime-deploy-action@v2.1
         with:
           FEATURES_LEVEL_LOG: debug
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
@@ -46,6 +46,7 @@ jobs:
           PATH_TO_MOUNT: path/to/mount
           LOCALEXEC_ENABLED: true # not mandatory
           TF_LOG_PROVIDER: info # not mandatory
+          CHECKOUT_BRANCH: 'true' # not mandatory
 ```
 
 * * *
@@ -71,6 +72,7 @@ Field | Mandatory | Observation
 **OUTPUT_FILE** | NO | Filename where outputs will be saved (default value: `outputs.json`)
 **LOCALEXEC_ENABLED** | NO | Whether or not terraform will be enable to perform local exec operations or not (default: `false`)
 **TF_LOG_PROVIDER** | NO | If there is a need to check Terraform's own log, it is now possible to pass the levels of the Terraform provider, allowing you to analyze what happens within Terraform's CLI (info, trace, debug and warn).
+**CHECKOUT_BRANCH** | NO  | Whether or not checkout is enabled. (default: `'false'`)
 
 * * *
 

@@ -56,10 +56,18 @@ inputs:
   TF_LOG_PROVIDER:
     description: "Level tf log provider - info, debug, warn or trace"
     required: false
+  CHECKOUT_BRANCH:
+    description: "Whether or not checkout is enabled."
+    required: false
+    default: 'false'
+    
 
 runs:
   using: "composite"
   steps:
+    - name: Checkout
+      if: inputs.CHECKOUT_BRANCH != 'false'
+      uses: actions/checkout@v4
       
     - name: Check Runner
       run: echo 🤖 OS runner is $(uname)

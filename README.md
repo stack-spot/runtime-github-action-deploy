@@ -27,7 +27,7 @@ jobs:
     steps:
       - name: DEPLOY
         if: contains( matrix.task.taskType , 'DEPLOY')
-        uses: stack-spot/runtime-deploy-action@v2.1
+        uses: stack-spot/runtime-deploy-action@v2.3
         with:
           FEATURES_LEVEL_LOG: debug
           CLIENT_ID: ${{ secrets.CLIENT_ID }}

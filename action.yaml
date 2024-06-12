@@ -36,7 +36,7 @@ inputs:
     required: true 
   CONTAINER_URL:
     description: "Deploy Container url"
-    default: stackspot/runtime-job-deploy
+    default: stackspot/runtime-job-deploy:0.dev1
   FEATURES_TERRAFORM_MODULES:
     description: "Terraform Modules"
     required: false
@@ -94,7 +94,7 @@ runs:
         -e AWS_REGION=${{ inputs.AWS_REGION }} \
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \
         --entrypoint=/app/stackspot-runtime-job-deploy \
-        ${{ inputs.CONTAINER_URL }}:0.dev1 start --run-task-id="${{ inputs.RUN_TASK_ID }}"
+        ${{ inputs.CONTAINER_URL }} start --run-task-id="${{ inputs.RUN_TASK_ID }}"
       shell: bash
 
 
@@ -120,7 +120,7 @@ runs:
         -e AWS_REGION=${{ inputs.AWS_REGION }} \
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \
         --entrypoint=/app/stackspot-runtime-job-deploy \
-        ${{ inputs.CONTAINER_URL }}:0.dev1 start --run-task-id="${{ inputs.RUN_TASK_ID }}"
+        ${{ inputs.CONTAINER_URL }} start --run-task-id="${{ inputs.RUN_TASK_ID }}"
       shell: bash
 
 branding:

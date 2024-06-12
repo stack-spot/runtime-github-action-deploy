@@ -36,7 +36,7 @@ inputs:
     required: true 
   CONTAINER_URL:
     description: "Deploy Container url"
-    default: stackspot/runtime-job-deploy
+    default: stackspot/runtime-job-deploy:latest
   FEATURES_TERRAFORM_MODULES:
     description: "Terraform Modules"
     required: false
@@ -51,7 +51,7 @@ inputs:
   RELEASE_LOCALEXEC:
     description: "If Runtimes will allow execution of the local-exec command within terraform"
     required: false
-    default: false
+    default: 'false'
 
 runs:
   using: "composite"
@@ -93,7 +93,7 @@ runs:
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \
         -e FEATURES_RELEASE_LOCALEXEC=${{ inputs.RELEASE_LOCALEXEC }} \
         --entrypoint=/app/stackspot-runtime-job-deploy \
-        ${{ inputs.CONTAINER_URL }}:latest start --run-task-id="${{ inputs.RUN_TASK_ID }}" --output-file="${{ inputs.OUTPUT_FILE }}"
+        ${{ inputs.CONTAINER_URL }} start --run-task-id="${{ inputs.RUN_TASK_ID }}" --output-file="${{ inputs.OUTPUT_FILE }}"
       shell: bash
 
     - name: Run Runtime Action Deploy
@@ -119,7 +119,7 @@ runs:
         -e FEATURES_TERRAFORM_MODULES='${{ inputs.FEATURES_TERRAFORM_MODULES }}' \
         -e FEATURES_RELEASE_LOCALEXEC=${{ inputs.RELEASE_LOCALEXEC }} \
         --entrypoint=/app/stackspot-runtime-job-deploy \
-        ${{ inputs.CONTAINER_URL }}:latest start --run-task-id="${{ inputs.RUN_TASK_ID }}" --output-file="${{ inputs.OUTPUT_FILE }}"
+        ${{ inputs.CONTAINER_URL }} start --run-task-id="${{ inputs.RUN_TASK_ID }}" --output-file="${{ inputs.OUTPUT_FILE }}"
       shell: bash
 
 branding:

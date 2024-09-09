@@ -1,0 +1,75 @@
+stages:
+  - deploy
+
+variables:
+  FEATURES_LEVEL_LOG: $FEATURES_LEVEL_LOG
+  CLIENT_ID: $CLIENT_ID
+  CLIENT_KEY: $CLIENT_KEY
+  CLIENT_REALM: $CLIENT_REALM
+  REPOSITORY_NAME: $REPOSITORY_NAME
+  AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+  AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+  AWS_SESSION_TOKEN: $AWS_SESSION_TOKEN
+  AWS_REGION: $AWS_REGION
+  AWS_ROLE_ARN: $AWS_ROLE_ARN
+  RUN_TASK_ID: $RUN_TASK_ID
+  CONTAINER_URL: ${CONTAINER_URL:-stackspot/runtime-job-deploy:latest}
+  FEATURES_TERRAFORM_MODULES: $FEATURES_TERRAFORM_MODULES
+  PATH_TO_MOUNT: ${PATH_TO_MOUNT:-$CI_PROJECT_DIR}
+  OUTPUT_FILE: ${OUTPUT_FILE:-outputs.json}
+  LOCALEXEC_ENABLED: ${LOCALEXEC_ENABLED:-false}
+  TF_LOG_PROVIDER: $TF_LOG_PROVIDER
+  CHECKOUT_BRANCH: ${CHECKOUT_BRANCH:-'false'}
+
+deploy:
+  stage: deploy
+  script:
+    - |
+      if [ "$CHECKOUT_BRANCH" != 'false' ]; then
+        git checkout $CI_COMMIT_REF_NAME
+      fi
+    - echo "🤖 OS runner is $(uname)"
+    - |
+      if [ -n "$AWS_ROLE_ARN" ]; then
+        aws sts assume-role --role-arn $AWS_ROLE_ARN --role-session-name gitlab-ci-session > /tmp/creds.json
+        export AWS_ACCESS_KEY_ID=$(jq -r '.Credentials.AccessKeyId' /tmp/creds.json)
+        export AWS_SECRET_ACCESS_KEY=$(jq -r '.Credentials.SecretAccessKey' /tmp/creds.json)
+        export AWS_SESSION_TOKEN=$(jq -r '.Credentials.SessionToken' /tmp/creds.json)
+      fi
+    - |
+      FLAGS=$(echo "-v $PATH_TO_MOUNT:/app-volume  \
+      -e FEATURES_LEVEL_LOG=$FEATURES_LEVEL_LOG \
+      -e AUTHENTICATE_CLIENT_ID=$CLIENT_ID \
+      -e AUTHENTICATE_CLIENT_SECRET=$CLIENT_KEY \
+      -e AUTHENTICATE_CLIENT_REALMS=$CLIENT_REALM \
+      -e AUTHENTICATE_URL=https://idm.stackspot.com \
+      -e REPOSITORY_NAME=$REPOSITORY_NAME \
+      -e FEATURES_API_MANAGER=https://runtime-manager.v1.stackspot.com \
+      -e FEATURES_BASEPATH_TMP=/tmp/runtime/deploys \
+      -e FEATURES_BASEPATH_EBS=/opt/runtime \
+      -e FEATURES_TEMPLATES_FILEPATH=/app/ \
+      -e FEATURES_BASEPATH_TERRAFORM=/root/.asdf/shims/terraform \
+      -e AWS_REGION=$AWS_REGION \
+      -e FEATURES_RELEASE_LOCALEXEC=$LOCALEXEC_ENABLED")
+
+      if [ -z "$AWS_ROLE_ARN" ]; then
+        FLAGS=$(echo "$FLAGS -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID")
+        FLAGS=$(echo "$FLAGS -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY")
+        FLAGS=$(echo "$FLAGS -e AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN")
+      fi
+
+      if [ -n "$AWS_ROLE_ARN" ]; then
+        FLAGS=$(echo "$FLAGS -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID")
+        FLAGS=$(echo "$FLAGS -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY")
+        FLAGS=$(echo "$FLAGS -e AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN")
+      fi
+
+      if [ -n "$TF_LOG_PROVIDER" ]; then
+        FLAGS=$(echo "$FLAGS -e FEATURES_TERRAFORM_LOGPROVIDER=$TF_LOG_PROVIDER")
+      fi
+
+      docker run --rm \
+      $FLAGS \
+      -e FEATURES_TERRAFORM_MODULES='$FEATURES_TERRAFORM_MODULES' \
+      --entrypoint=/app/stackspot-runtime-job-deploy \
+      $CONTAINER_URL start --run-task-id="$RUN_TASK_ID" --output-file="$OUTPUT_FILE"
